@@ -1,0 +1,16 @@
+application: js-fireworks
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  static_files: staticroot/index.html
+  upload: staticroot/index.html
+- url: /twitter
+  script: twitter_oauth_handler.py
+- url: /oauth/.*
+  script: twitter_oauth_handler.py
+- url: /(.*)
+  static_files: staticroot/\1
+  upload: staticroot/(.*)

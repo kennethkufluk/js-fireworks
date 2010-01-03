@@ -1,0 +1,10 @@
+Fireworks in Flex
+
+How to compile:
+
+1)  Get Eclipse
+2)  Install the beta of Powerflasher (FDT)
+3)  When building the AS3 application, put "-target-player=10.0.0" in the compiler arguments
+4)  Compile
+
+It's translucent, so on a white background it looks very invisible :)
