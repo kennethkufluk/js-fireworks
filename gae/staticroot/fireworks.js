@@ -234,6 +234,12 @@ Firework = function(index) {
     this.previous = 0;
 }
 
+$(document).ready(function(){
+    $('#firetext').blur(function(){
+        FireworkDisplay.getTinyUrl();
+    });
+});
+
 
 // DOCUMENT FUNCTIONS
 var resizeTimer = null; 
