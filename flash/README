@@ -1,0 +1,7 @@
+I haven't got Flash on my machine any more, so I can't test this one for you.
+
+I simply used the JS version as a basis, and switched the drawing commands to their ActionScript equivalents.
+
+http://kenneth.kufluk.com/blog/2009/08/porting-js-fireworks-to-flash/
+
+Oddly, Flash runs no faster than JavaScript, at least on modern browsers.

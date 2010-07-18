@@ -1,0 +1,16 @@
+This is the Flex version of the js-fireworks experiment.
+Truth be told, I don't have the tools to compile Flex any more.
+I assume all the code is here.  
+
+I worked from the brillant FluidSolver project.
+http://code.google.com/p/in-spirit/wiki/FluidSolver
+
+How to compile:
+1)  Get Eclipse
+2)  Install the beta of Powerflasher (FDT)
+3)  When building the AS3 application, put "-target-player=10.0.0" in the compiler arguments
+4)  Compile
+
+It's translucent, so on a white background it looks very invisible :)
+
+http://kenneth.kufluk.com/blog/2009/08/js-fireworks-in-flex/
