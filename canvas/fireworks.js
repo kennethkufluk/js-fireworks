@@ -1,9 +1,96 @@
 /*
  * fireworks.js - Kenneth Kufluk (http://kenneth.kufluk.com/)
- * MIT Licensed
  * http://js-fireworks.appspot.com/
+ * MIT (X11) Licensed
+ 
+ Copyright (c) 2010 Kenneth Kufluk
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ 
  *
  */
+$(document).ready(function(){
+
+    // when firework text is changed, update the tinyurl
+    $('#firetext').blur(function(){
+        FireworkDisplay.getTinyUrl();
+    });
+
+    // focus on the input box
+    try {
+        $('#firetext').get(0).focus();
+    } catch (ignore) {
+    }
+
+    // reload the page when it's resized
+    var resizeTimer = null; 
+    $(window).bind('resize', function() { 
+        if (document.all) return;
+        if (resizeTimer) clearTimeout(resizeTimer); 
+        resizeTimer = setTimeout("location.reload()", 100); 
+    }); 
+
+    // finally, all is ready, so kick off the firework display
+    var params = location.search;
+    var message = "";
+    if (params.match('msg=')) {
+        // change the message if set in the page url
+        message = unescape(params.split('?msg=')[1]);
+        $('#firetext').val(message);
+    }
+    FireworkDisplay.launchText();
+
+});
+
+
+// configure the sliders
+$(document).ready(function(){
+    $("#slider_firework_speed").slider({
+        slide: function(event, ui) {
+            FireworkDisplay.FIREWORK_SPEED = ui.value;
+        },
+        value: FireworkDisplay.FIREWORK_SPEED,
+        max: 5,
+        step: 0.1,
+        orientation: 'vertical'
+    });
+    $("#slider_fragment_spread").slider({
+        slide: function(event, ui) {
+            FireworkDisplay.FRAGMENT_SPREAD = ui.value;
+        },
+        value: FireworkDisplay.FRAGMENT_SPREAD,
+        max: 20,
+        orientation: 'vertical'
+    });
+    $("#slider_gravity").slider({
+        slide: function(event, ui) {
+            FireworkDisplay.GRAVITY = ui.value;
+        },
+        value: FireworkDisplay.GRAVITY,
+        step: 0.1,
+        min: -10,
+        max: 20,
+        orientation: 'vertical'
+    });
+});
+
+
 FireworkDisplay = {
     GRAVITY : 5,
     FRAME_RATE : 30,
@@ -233,21 +320,6 @@ Firework = function(index) {
     this.start = {x:0, y:0};
     this.previous = 0;
 }
-
-$(document).ready(function(){
-    $('#firetext').blur(function(){
-        FireworkDisplay.getTinyUrl();
-    });
-});
-
-
-// DOCUMENT FUNCTIONS
-var resizeTimer = null; 
-$(window).bind('resize', function() { 
-    if (document.all) return;
-    if (resizeTimer) clearTimeout(resizeTimer); 
-    resizeTimer = setTimeout("location.reload()", 100); 
-}); 
 
 
 // Home-made point-based font.
