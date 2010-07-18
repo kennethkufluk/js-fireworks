@@ -5,8 +5,8 @@ api_version: 1
 
 handlers:
 - url: /
-  static_files: index.html
-  upload: index.html
+  static_files: canvas/index.html
+  upload: canvas/index.html
 - url: /(.*)
   static_files: \1
   upload: (.*)
