@@ -1,0 +1,12 @@
+application: js-fireworks
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  static_files: index.html
+  upload: index.html
+- url: /(.*)
+  static_files: \1
+  upload: (.*)
