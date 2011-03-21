@@ -2,7 +2,7 @@
  * fireworks.js - Kenneth Kufluk (http://kenneth.kufluk.com/)
  * http://js-fireworks.appspot.com/
  * MIT (X11) Licensed
- 
+
  Copyright (c) 2010 Kenneth Kufluk
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,18 +22,18 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
- 
+
  *
  */
 
 !function(){
   var GRAVITY = 5,
       FRAME_RATE = 30,
-      DEPLOYMENT_RATE = 50,
+      DEPLOYMENT_RATE = 30,
       FIREWORK_SPEED = 3,
       DISPERSION_WIDTH = 1,
       DISPERSION_HEIGHT = 2,
-      FIREWORK_PAYLOAD = 20,
+      FIREWORK_PAYLOAD = 10,
       FRAGMENT_SPREAD = 8,
       TEXT_LINE_HEIGHT = 70,
       FIREWORK_READY = 0,
@@ -55,7 +55,7 @@
     ctx.clearRect(0, 0, canvaswidth, canvasheight);
     var firecount = 0;
     for (var i=0;i<fireworks.length;i++) {
-      if (!fireworks[i]) continue; 
+      if (!fireworks[i]) continue;
       if (fireworks[i].status!=FIREWORK_EXPLODED) {
         firecount++;
       }
@@ -75,7 +75,7 @@
     var targetx = allBlocks[blockPointer][0];
     targetx = (((targetx)) / 400) * DISPERSION_HEIGHT;
     var targety = allBlocks[blockPointer][1] + 50;
-    
+
     // Note to future self:
     // You're not calculating final positions, just initial velocity and angle
     // Which makes calculating final positions *really hard*
@@ -97,7 +97,7 @@
 
     //{"from_user_id_str":"52795855","profile_image_url":"http://a0.twimg.com/profile_images/392241937/BreakfastArea_normal.JPG","created_at":"Sun, 20 Mar 2011 22:35:01 +0000","from_user":"couture_drapery","id_str":"49599855135428609","metadata":{"result_type":"recent"},"to_user_id":null,"text":"Happy Birthday Twitter 5yrs old!!!!!!!","id":49599855135428610,"from_user_id":52795855,"geo":null,"iso_language_code":"en","to_user_id_str":null,"source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"}
 
-    $('#author').html('<img src="' + tweet.profile_image_url + '">' + 
+    $('#author').html('<img src="' + tweet.profile_image_url + '">' +
                      '<p>@' + tweet.from_user + '</p>');
 
 
@@ -149,7 +149,7 @@
         }
       }
     }
-      
+
 */
 
     // break into lines
@@ -217,9 +217,9 @@
 
 
     gameloop = setInterval(updateDisplay, 1000/FRAME_RATE);
-    
+
     addFireworks();
-    
+
   };
   var launchFirework = function(fw, dispersion, speed) {
     fw.dx = dispersion;
@@ -239,7 +239,7 @@
     ctx.strokeStyle = "rgb(200, 200, 200)";
     // add the fragments
     var frags = Math.random() * FIREWORK_PAYLOAD;
-    for (var i=0;i<frags;i++) { 
+    for (var i=0;i<frags;i++) {
       var spark = fireworks[fireworks.length] = new Firework(fireworks.length);
       spark.x = fw.x;
       spark.y = fw.y;
@@ -313,18 +313,18 @@
   }
 
   $(document).ready(function(){
-  
+
     // reload the page when it's resized
-    var resizeTimer = null; 
-    $(window).bind('resize', function() { 
+    var resizeTimer = null;
+    $(window).bind('resize', function() {
       if (document.all) return;
-      if (resizeTimer) clearTimeout(resizeTimer); 
-      resizeTimer = setTimeout("location.reload()", 100); 
-    }); 
-  
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout("location.reload()", 100);
+    });
+
     // load some tweets from twitter
     var message = "";
-    
+
     $.getJSON('http://search.twitter.com/search.json?callback=?', {
         q: 'twitter 5yrs happy',
         result_type: 'mixed'
@@ -333,8 +333,8 @@
         tweets = data.results;
         launchText();
       });
-  
-  
+
+
   });
 
 
