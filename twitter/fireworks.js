@@ -30,7 +30,8 @@
   var GRAVITY = 5,
       FRAME_RATE = 30,
       DEPLOYMENT_RATE = 30,
-      FIREWORK_SPEED = 3,
+      FIREWORK_SPEED = 7,
+      ACCURATE_FIREWORK_SPEED = 3,
       DISPERSION_WIDTH = 1,
       DISPERSION_HEIGHT = 2,
       FIREWORK_PAYLOAD = 10,
@@ -93,7 +94,7 @@
       return launchText();
     }
     text = text.replace(/https?:\/\/.+?(,| |$)/, ''); //strip URLs
-    text = text.replace(/&amp;/, '&'); //strip entities
+    text = text.replace(/\&amp\;/g, '&'); //strip entities
 
     //{"from_user_id_str":"52795855","profile_image_url":"http://a0.twimg.com/profile_images/392241937/BreakfastArea_normal.JPG","created_at":"Sun, 20 Mar 2011 22:35:01 +0000","from_user":"couture_drapery","id_str":"49599855135428609","metadata":{"result_type":"recent"},"to_user_id":null,"text":"Happy Birthday Twitter 5yrs old!!!!!!!","id":49599855135428610,"from_user_id":52795855,"geo":null,"iso_language_code":"en","to_user_id_str":null,"source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"}
 
@@ -273,19 +274,23 @@
       forces.y = GRAVITY/-100;
       fw.colour = "rgb("+Math.round(fw.r*fw.brightness)+", "+Math.round(fw.g*fw.brightness)+", "+Math.round(fw.b*fw.brightness)+")";
       ctx.strokeStyle = fw.colour;
-      fw.brightness-=5;
+      fw.brightness-=15;
       if (fw.brightness<0) destroyFirework(fw);
+    }
+    var myFireworkSpeed = FIREWORK_SPEED;
+    if (fw.dy<1 && fw.status==FIREWORK_LAUNCHED) {
+      myFireworkSpeed = ACCURATE_FIREWORK_SPEED;
     }
     if (fw.dy<-1 && fw.status==FIREWORK_LAUNCHED) {
       explodeFirework(fw);
     }
     fw.start = {x:fw.x, y:fw.y};
     //apply accelerations
-    fw.dx += forces.x*FIREWORK_SPEED;
-    fw.dy += forces.y*FIREWORK_SPEED;
+    fw.dx += forces.x*myFireworkSpeed;
+    fw.dy += forces.y*myFireworkSpeed;
     //apply velocities
-    fw.x += fw.dx*FIREWORK_SPEED;
-    fw.y += fw.dy*FIREWORK_SPEED;
+    fw.x += fw.dx*myFireworkSpeed;
+    fw.y += fw.dy*myFireworkSpeed;
     //show
     if (fw.previous) {
       ctx.beginPath();
@@ -326,7 +331,7 @@
     var message = "";
 
     $.getJSON('http://search.twitter.com/search.json?callback=?', {
-        q: 'twitter 5yrs happy',
+        q: 'twitter awesome',
         result_type: 'mixed'
       }, function(data) {
         // kick off the fireworks
