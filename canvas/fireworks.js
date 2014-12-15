@@ -142,9 +142,11 @@ FireworkDisplay = {
         setTimeout("FireworkDisplay.addFireworks()", 1000/this.DEPLOYMENT_RATE);
     },
     getTinyUrl : function () {
-        var tinypath = "http://js-fireworks.appspot.com?msg="+escape($('#firetext').val());
-        // Define API URL:
-        API = 'http://json-tinyurl.appspot.com/?url=';
+        // Source: http://css-tricks.com/snippets/javascript/get-url-and-url-parts-in-javascript/
+        var tinypath = window.location.protocol.replace(/\:/g, "") + "://" + (window.location.host + "/" + window.location.pathname).replace('//', '/')+"?msg="+escape($('#firetext').val());
+        
+        // Define API URL: //updated with: http://yabtb.blogspot.be/2012/01/urltinyfy-jsonp-api-for-tinyurlcom.html
+        API = 'http://urltinyfy.appspot.com/isgd?url=';
         // Append new SCRIPT element to BODY with SRC of API:
         document.getElementsByTagName('body')[0].appendChild((function(){
             var s = document.createElement('script');
