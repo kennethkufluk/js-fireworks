@@ -142,9 +142,11 @@ FireworkDisplay = {
         setTimeout("FireworkDisplay.addFireworks()", 1000/this.DEPLOYMENT_RATE);
     },
     getTinyUrl : function () {
-        var tinypath = "http://js-fireworks.appspot.com?msg="+escape($('#firetext').val());
-        // Define API URL:
-        API = 'http://json-tinyurl.appspot.com/?url=';
+        // Source: http://css-tricks.com/snippets/javascript/get-url-and-url-parts-in-javascript/
+        var tinypath = window.location.protocol.replace(/\:/g, "") + "://" + (window.location.host + "/" + window.location.pathname).replace('//', '/')+"?msg="+escape($('#firetext').val());
+        
+        // Define API URL: //updated with: http://yabtb.blogspot.be/2012/01/urltinyfy-jsonp-api-for-tinyurlcom.html
+        API = 'http://urltinyfy.appspot.com/isgd?url=';
         // Append new SCRIPT element to BODY with SRC of API:
         document.getElementsByTagName('body')[0].appendChild((function(){
             var s = document.createElement('script');
@@ -182,46 +184,63 @@ FireworkDisplay = {
         if (pageTracker) pageTracker._trackPageview("/launched/"+escape(text));
 
         var totalHeightOffset = 0;
-        var totalWidthOffset = new Array();
-        var widthCounter = 0;
-        totalWidthOffset[widthCounter] = 0;
-        for (var i=0;i<text.length;i++) {
-            if (text.charAt(i)==' ') {
-                totalHeightOffset += this.TEXT_LINE_HEIGHT;
-                widthCounter++;
-                totalWidthOffset[widthCounter] = 0;
-            } else {
-                var maxWidthOffset = 0;
-                for (var j=0;j<FONT_FIREWORK[text.charAt(i)].length;j++) {
-                    var chararr = FONT_FIREWORK[text.charAt(i)][j];
-                    maxWidthOffset = Math.max(maxWidthOffset, chararr[0]);
-                }
-                totalWidthOffset[widthCounter] += maxWidthOffset + 40;
-            }
-        }
+        var totalWidthOffset = [];
+		var totalWords = 0;
+		totalWidthOffset[totalWords] = 0;
+		// cycle through text
+		for (var i=0;i<text.length;i++) {
+			if (text.charAt(i)==' ') {
+				// character is a space
+				totalHeightOffset += this.TEXT_LINE_HEIGHT;
+				totalWords++;
+				totalWidthOffset[totalWords] = 0;
+			} else {
+				// character is not a space
+				var maxWidthOffset = 0;
+				// cycle through font array
+				for (var j=0;j<FONT_FIREWORK[text.charAt(i)].length;j++) {
+					// assign each dot to chararr
+					var chararr = FONT_FIREWORK[text.charAt(i)][j];
+					// calculate max width offset based on default or newly added dot
+					maxWidthOffset = Math.max(maxWidthOffset, chararr[0]);
+				}
+				// register widthOffset for each word + character spacing
+				totalWidthOffset[totalWords] += maxWidthOffset + 40;
+			}
+		}
 
 
-        this.allBlocks = new Array();
-        var windowHeight = $(window).height();
-        var offsetTop = totalHeightOffset;
-        offsetTop += (windowHeight-totalHeightOffset)/6;
-        var offsetLeft = 0;
-        var heightOffsetCount = 0;
-        for (var i=0;i<text.length;i++) {
-            if (text.charAt(i)==' ') {
-                heightOffsetCount++;
-                offsetTop = offsetTop - this.TEXT_LINE_HEIGHT;
-                offsetLeft = 0;
-            } else {
-                var maxWidthOffset = 0;
-                for (var j=0;j<FONT_FIREWORK[text.charAt(i)].length;j++) {
-                    var chararr = FONT_FIREWORK[text.charAt(i)][j];
-                    this.allBlocks[this.allBlocks.length] = [(chararr[0]+offsetLeft)-(totalWidthOffset[heightOffsetCount]/2), chararr[1]-offsetTop];
-                    maxWidthOffset = Math.max(maxWidthOffset, chararr[0]);
-                }
-                offsetLeft += maxWidthOffset+40;  //plus character spacing
-            }
-        }
+		this.allBlocks = [];
+		var windowHeight = $(window).height();
+		var offsetTop = totalHeightOffset;
+		offsetTop += (windowHeight-totalHeightOffset)/6;
+		var offsetLeft = 0;
+		var heightOffsetCount = 0;
+		// cycle through text
+		for (var i=0;i<text.length;i++) {
+			if (text.charAt(i)==' ') {
+				// character is a space
+				// for each word start new line
+				heightOffsetCount++;
+				// calculate offset from top
+				offsetTop = offsetTop - this.TEXT_LINE_HEIGHT;
+				// start on left again for each word
+				offsetLeft = 0;
+			} else {
+				// character is not a space
+				var maxWidthOffset = 0;
+				// cycle through font array
+				for (var j=0;j<FONT_FIREWORK[text.charAt(i)].length;j++) {
+					// assign each dot to chararr
+					var chararr = FONT_FIREWORK[text.charAt(i)][j];
+					// add current font dot to array, register x and y values to be used in fireworksDisplay() 
+					this.allBlocks[this.allBlocks.length] = [(chararr[0]+offsetLeft)-(totalWidthOffset[heightOffsetCount]/2), chararr[1]-offsetTop];
+					maxWidthOffset = Math.max(maxWidthOffset, chararr[0]);
+				}
+				// add letters from left to right + character spacing
+				offsetLeft += maxWidthOffset+40;
+			}
+		}
 
         this.gameloop = setInterval("FireworkDisplay.updateDisplay()", 1000/this.FRAME_RATE);
         
