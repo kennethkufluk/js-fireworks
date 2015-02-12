@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL -->
+<html lang="en-US" dir="ltr" class="redesign "><head prefix="og: http://ogp.me/ns#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <script async="" src="./Animating objects with WebGL - WebGL   MDN_files/analytics.js"></script><script>(function(d) { d.className = d.className.replace(/\bno-js/, ''); })(document.documentElement);</script>
+        
+    <title>Animating objects with WebGL - WebGL | MDN</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <link rel="home" href="https://developer.mozilla.org/en-US/">
+  <link rel="copyright" href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#copyright">
+
+  <link href="./Animating objects with WebGL - WebGL   MDN_files/tabzilla-min.css" type="text/css" rel="stylesheet">
+              <link rel="stylesheet" media="all" href="https://developer.cdn.mozilla.net/media/css/mdn-min.css?build=7858705">
+
+      
+    <link rel="stylesheet" media="all" href="https://developer.cdn.mozilla.net/media/css/wiki-min.css?build=7858705">
+
+    
+    
+  <!-- common social tags -->
+    <meta property="og:type" content="website">
+  <meta property="og:image" content="https://developer.mozilla.org/media/redesign/img/opengraph-logo.png">
+  <meta property="og:site_name" content="Mozilla Developer Network">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://developer.mozilla.org/media/redesign/img/opengraph-logo.png">
+  <meta name="twitter:site" content="@NewOnMDN">
+  <meta name="twitter:creator" content="@NewOnMDN">
+
+  <link rel="search" type="application/opensearchdescription+xml" href="https://developer.mozilla.org/en-US/search/xml" title="Mozilla Developer Network">
+
+  <!-- third-generation iPad with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://developer.cdn.mozilla.net/media/redesign/img/favicon144.png">
+  <!-- iPhone with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://developer.cdn.mozilla.net/media/redesign/img/favicon114.png">
+  <!-- first- and second-generation iPad: -->
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://developer.cdn.mozilla.net/media/redesign/img/favicon72.png">
+  <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+  <link rel="apple-touch-icon-precomposed" href="https://developer.cdn.mozilla.net/media/redesign/img/favicon57.png">
+  <!-- basic favicon -->
+          <link rel="shortcut icon" href="https://developer.cdn.mozilla.net/media/redesign/img/favicon32.png">
+  <!--[if IE]>
+  <meta http-equiv="imagetoolbar" content="no">
+  <script src="https://developer.cdn.mozilla.net/media/js/libs/html5.js"></script>
+  <![endif]-->
+
+    <link rel="alternate" type="application/json" href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL$json">
+  <link rel="canonical" href="./Animating objects with WebGL - WebGL   MDN_files/Animating objects with WebGL - WebGL   MDN.html">
+
+            <link rel="alternate" hreflang="de" href="https://developer.mozilla.org/de/docs/Web/WebGL/Objekte_mit_WebGL_animieren" title="Objekte mit WebGL animieren">
+          <link rel="alternate" hreflang="es" href="https://developer.mozilla.org/es/docs/Web/WebGL/Animating_objects_with_WebGL" title="Animación de Objetos con  WebGL">
+          <link rel="alternate" hreflang="ja" href="https://developer.mozilla.org/ja/docs/Web/WebGL/Animating_objects_with_WebGL" title="Animating objects with WebGL">
+          <link rel="alternate" hreflang="ko" href="https://developer.mozilla.org/ko/docs/Web/WebGL/Animating_objects_with_WebGL" title="WebGL을 사용한 애니메이션 객체">
+      
+  <!-- document-specific social tags -->
+  <meta property="og:title" content="Animating objects with WebGL">
+  <meta property="og:url" content="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL">
+  <meta name="twitter:url" content="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL">
+  <meta name="twitter:title" content="Animating objects with WebGL">
+    <meta property="og:description" content="Our existing code from the previous examples is already configured to redraw our WebGL scene every 15 milliseconds. Until now, it&#39;s simply redrawing everything exactly the same way every time. It&#39;s time to change that, so that our square actually moves.">
+  <meta name="description" content="Our existing code from the previous examples is already configured to redraw our WebGL scene every 15 milliseconds. Until now, it&#39;s simply redrawing everything exactly the same way every time. It&#39;s time to change that, so that our square actually moves.">
+  <meta name="twitter:description" content="Our existing code from the previous examples is already configured to redraw our WebGL scene every 15 milliseconds. Until now, it&#39;s simply redrawing everything exactly the same way every time. It&#39;s time to change that, so that our square actually moves.">
+  
+      <script type="text/javascript">
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36116321-5', 'mozilla.org');
+    ga('set', 'anonymizeIp', true);
+
+    
+    
+    
+    (function() {
+        // http://cfsimplicity.com/61/removing-analytics-clutter-from-campaign-urls
+        var win = window;
+        var removeUtms = function(){
+            var location = win.location;
+            if (location.href.indexOf('utm') != -1 && win.history.replaceState) {
+                win.history.replaceState({}, '', location.pathname);
+            }
+        };
+
+        ga('send', 'pageview', {'hitCallback': removeUtms});
+    })();
+</script>
+  <script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"VgAEV1RTGwABU1NSAAQ="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(5),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,window.onerror=e,NREUM.noticeError=n;try{throw new Error}catch(f){"stack"in f&&(t(1),t(4),"addEventListener"in window&&t(2),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(3),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:8,2:5,3:9,4:7,5:21,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],4:[function(t){function e(){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var n=t("ee"),r=t("handle"),o=t(2);t("loader").features.stn=!0,t(1),n.on("fn-start",function(t){var e=t[0];e instanceof Event&&(this.bstStart=Date.now())}),n.on("fn-end",function(t,e){var n=t[0];n instanceof Event&&r("bst",[n,e,this.bstStart,Date.now()])}),o.on("fn-start",function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),o.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),this.bstType])}),n.on("pushState-start",function(){this.time=Date.now(),this.startPath=location.pathname+location.hash}),n.on("pushState-end",function(){r("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),"addEventListener"in window.performance&&(window.performance.addEventListener("webkitresourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.webkitClearResourceTimings()},!1),window.performance.addEventListener("resourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.clearResourceTimings()},!1)),document.addEventListener("scroll",e,!1),document.addEventListener("keypress",e,!1),document.addEventListener("click",e,!1)}},{1:6,2:8,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:21,2:22,ee:"QJf3ax",gos:"7eSDFh"}],6:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window.history,["pushState"],"-")},{1:22,2:21,ee:"QJf3ax"}],7:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:22,2:21,ee:"QJf3ax"}],8:[function(t,e){function n(t,e,n){var r=t[0];"string"==typeof r&&(r=new Function(r)),t[0]=o(r,"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:22,2:21,ee:"QJf3ax"}],9:[function(t,e){function n(){c.inPlace(this,d,"fn-")}function r(t,e){c.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}var i=t("ee").create(),a=t(1),s=t(2),c=s(i),f=s(a),u=window.XMLHttpRequest,d=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=i,window.XMLHttpRequest=function(t){var e=new u(t);try{i.emit("new-xhr",[],e),f.inPlace(e,["addEventListener","removeEventListener"],"-",function(t,e){return e}),e.addEventListener("readystatechange",n,!1)}catch(r){try{i.emit("internal-error",[r])}catch(o){}}return e},window.XMLHttpRequest.prototype=u.prototype,c.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),i.on("send-xhr-start",r),i.on("open-xhr-start",r)},{1:5,2:22,ee:"QJf3ax"}],10:[function(t){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=e(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(n.cat=d.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r,this.startTime])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=e(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",[e])}catch(r){}}};for(var u=0;c>u;u++)n.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:11,3:9,4:5,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],11:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=l.info=NREUM.info;if(t&&t.licenseKey&&t.applicationID&&f&&f.body){s(h,function(e,n){e in t||(t[e]=n)}),l.proto="https"===p.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=f.createElement("script");e.src=l.proto+t.agent,f.body.appendChild(e)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=t(1),c=window,f=c.document,u="addEventListener",d="attachEvent",p=(""+location).split("?")[0],h={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-515.min.js"},l=e.exports={offset:i(),origin:p,features:{}};f[u]?(f[u]("DOMContentLoaded",o,!1),c[u]("load",n,!1)):(f[d]("onreadystatechange",r),c[d]("onload",n)),a("mark",["firstbyte",i()])},{1:20,handle:"D5DuLP"}],20:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],21:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],22:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s,t))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:21,ee:"QJf3ax"}]},{},["G9z0Bl",3,10,4]);</script></head>
+<body data-slug="Web/WebGL/Animating_objects_with_WebGL" contextmenu="edit-history-menu" class="document  "><div id="tabzilla-panel" class="tabzilla-closed" tabindex="-1">  <div id="tabzilla-contents">    <div id="tabzilla-promo">      <div class="snippet" id="tabzilla-promo-gear">        <a href="https://gear.mozilla.org/?ref=OMG_launch&utm_campaign=OMG_launch&utm_source=gear.mozilla.org&utm_medium=referral&utm_content=tabzilla">          <h4>Official Mozilla gear is here</h4>        </a>      </div>    </div>    <div id="tabzilla-nav">      <ul>        <li><h2>Mozilla</h2>          <div>            <ul>              <li><a href="https://www.mozilla.org/mission/?icn=tabz">Mission</a></li>              <li><a href="https://www.mozilla.org/about/?icn=tabz">About</a></li>              <li><a href="https://www.mozilla.org/projects/?icn=tabz">Projects</a></li>              <li><a href="https://support.mozilla.org/?icn=tabz">Support</a></li>              <li><a href="https://developer.mozilla.org/?icn=tabz">Developer Network</a></li>            </ul>          </div>        </li>        <li><h2>Products</h2>          <div>            <ul>              <li><a href="https://www.mozilla.org/firefox/?icn=tabz">Firefox</a></li>              <li><a href="https://www.mozilla.org/thunderbird/?icn=tabz">Thunderbird</a></li>              <li><a href="https://www.mozilla.org/firefox/os/?icn=tabz">Firefox OS</a></li>            </ul>          </div>        </li>        <li><h2>Innovations</h2>          <div>            <ul>              <li><a href="https://webmaker.org/?icn=tabz">Webmaker</a></li>              <li><a href="https://www.mozilla.org/research/?icn=tabz">Research</a></li>            </ul>          </div>        </li>        <li><h2>Get Involved</h2>          <div>            <ul>              <li><a href="https://www.mozilla.org/contribute/?icn=tabz">Volunteer</a></li>              <li><a href="https://careers.mozilla.org/?icn=tabz">Careers</a></li>              <li><a href="https://www.mozilla.org/en-US/about/mozilla-spaces/?icn=tabz">Find us</a></li>              <li><a href="https://sendto.mozilla.org/page/contribute/givenow-seq?preset=2&source=mozillaorg_tabzillaTXT&ref=EOYFR2014&utm_campaign=EOYFR2014&utm_source=mozilla.org&utm_medium=referral&utm_content=mozillaorg_tabzillaTXT&icn=tabz" class="donate">Donate</a></li>              <li><a href="https://www.mozilla.org/about/partnerships/?icn=tabz">Partner</a></li>            </ul>          </div>        </li>        <li id="tabzilla-search">          <a href="https://wiki.mozilla.org/Websites/Directory?icn=tabz">Website Directory</a>          <form title="Search Mozilla sites" role="search" action="https://www.google.com/cse">            <input type="hidden" value="002443141534113389537:ysdmevkkknw" name="cx">            <input type="hidden" value="FORID:0" name="cof">            <label for="q">Search</label>            <input type="search" placeholder="Search" id="q" name="q">          </form>        </li>      </ul>    </div>  </div></div>
+
+  <script type="text/javascript">
+    (function(win) {
+        'use strict';
+
+                    (function(){
+  var FLAGS = {
+    'demos_10th': true,'demos_10th_preload': true,'derby_closed': true,'dirtiness_tracking': true,'ga_outbound_links': true,'github_beta_notice': false,'github_login': true,'kumaediting': false,'page_move': false,'promote_script': false,'redirect_messages': false,'search_explanation': false,'search_suggestions': false,'top_contributors': false,'wiki_spellcheck': false
+    },
+    SWITCHES = {
+    'wiki_error_on_delete': false,'wiki_force_immediate_rendering': false,'render_stale_documents_async': true,'enable_optimizely': false,'welcome_email': true,'application_ACAO': false,'store_revision_ips': true
+    },
+    SAMPLES = {
+    
+    };
+  window.waffle = {
+    "flag_is_active": function waffle_flag(flag_name) {
+      
+      return !!FLAGS[flag_name];
+    },
+    "switch_is_active": function waffle_switch(switch_name) {
+      
+      return !!SWITCHES[switch_name];
+    },
+    "sample_is_active": function waffle_sample(sample_name) {
+      
+      return !!SAMPLES[sample_name];
+    },
+    "FLAGS": FLAGS,
+    "SWITCHES": SWITCHES,
+    "SAMPLES": SAMPLES
+  };
+})();
+
+                
+        // This represents the site configuration
+        win.mdn = {
+            build: '7858705',
+            // Properties and settings for CKEditor will go here
+            ckeditor: {},
+            // Feature test results and methods will be placed here
+            features: {},
+            // The path to media (images, CSS, JS) in MDN
+            mediaPath: 'https://developer.cdn.mozilla.net/media/',
+            // Optimizely API
+            optimizely: win['optimizely'] || [],
+            // Site notifications
+            notifications: [
+                                            ],
+                        // Wiki-specific settings will be placed here
+            wiki: {
+                autosuggestTitleUrl: '/en-US/docs/get-documents'
+            },
+            searchFilters: [{"name": "Document type", "slug": "type", "order": 1, "filters": [{"name": "Tools", "slug": "tools", "shortcut": null}, {"name": "Code Samples", "slug": "code", "shortcut": null}, {"name": "How-To & Tutorial", "slug": "howto", "shortcut": null}]}, {"name": "Skill level", "slug": "skill", "order": 1, "filters": [{"name": "I'm an Expert", "slug": "advanced", "shortcut": null}, {"name": "Intermediate", "slug": "intermediate", "shortcut": null}, {"name": "I'm Learning", "slug": "beginner", "shortcut": null}]}, {"name": "Topics", "slug": "topic", "order": 1, "filters": [{"name": "Open Web Apps", "slug": "apps", "shortcut": null}, {"name": "HTML", "slug": "html", "shortcut": null}, {"name": "CSS", "slug": "css", "shortcut": null}, {"name": "JavaScript", "slug": "js", "shortcut": null}, {"name": "APIs and DOM", "slug": "api", "shortcut": null}, {"name": "Canvas", "slug": "canvas", "shortcut": null}, {"name": "SVG", "slug": "svg", "shortcut": null}, {"name": "MathML", "slug": "mathml", "shortcut": null}, {"name": "WebGL", "slug": "webgl", "shortcut": null}, {"name": "XUL", "slug": "xul", "shortcut": null}, {"name": "Marketplace", "slug": "marketplace", "shortcut": null}, {"name": "Firefox", "slug": "firefox", "shortcut": null}, {"name": "Firefox for Android", "slug": "firefox-mobile", "shortcut": "fennec"}, {"name": "Firefox for Desktop", "slug": "firefox-desktop", "shortcut": "fx"}, {"name": "Firefox OS", "slug": "firefox-os", "shortcut": "fxos"}, {"name": "Mobile", "slug": "mobile", "shortcut": null}, {"name": "Web Development", "slug": "webdev", "shortcut": null}, {"name": "Add-ons & Extensions", "slug": "addons", "shortcut": null}, {"name": "Games", "slug": "games", "shortcut": null}, {"name": "Writing Documentation", "slug": "docs", "shortcut": null}]}]
+        };
+
+        // Ensures gettext always returns something, is always set
+        win.gettext = function(x) {
+            return x;
+        }
+    })(window);
+</script>
+    <div class="global-notice">
+    <div class="wrap center">
+              <p><bdi>We want to help developers like you. Please give us 6 minutes to tell us what developer services you use: <a href="http://mzl.la/mdn-survey-services-2015q1">http://mzl.la/mdn-survey-services-2015q1</a></bdi></p>
+          </div>
+  </div>
+
+
+  
+
+  
+  <ul id="nav-access">
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#document-main" id="skip-main">Skip to main content</a></li>
+    <li><a id="skip-language" href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#language">Select language</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#q" id="skip-search">Skip to search</a></li>
+      </ul>
+
+  <!-- Header -->
+  <header id="main-header"><div class="center">
+
+    <a href="https://www.mozilla.org/" id="tabzilla" class="no-track" data-infobar="update" aria-label="Mozilla links">mozilla</a>
+
+    <div class="clear header-clear"></div>
+
+    <a href="https://developer.mozilla.org/en-US/" class="logo">Mozilla Developer Network</a>
+
+    <div class="header-login">
+                    
+                
+    <form>
+      <div class="oauth-login-container">
+          <div class="oauth-login-options" tabindex="0">
+              <span class="oauth-login-options-text">
+                <span class="oauth-login-options-text-icons">Sign in with</span>
+                <span class="oauth-login-options-text-no-icons">Sign in</span>
+              </span>
+              <span class="oauth-icon oauth-persona launch-persona-login" data-service="Persona" data-next="/en-US/docs/Web/WebGL/Animating_objects_with_WebGL" title="Persona"><i class="icon-user" aria-hidden="true"></i></span>
+                          <span class="oauth-icon oauth-github" data-service="GitHub" data-href="/users/github/login/?next=%2Fen-US%2Fdocs%2FWeb%2FWebGL%2FAnimating_objects_with_WebGL" title="GitHub"><i class="icon-github" aria-hidden="true"></i></span>
+                      </div>
+          <div class="submenu oauth-login-picker" aria-hidden="true">
+              <ul>
+                  <li><a href="https://developer.mozilla.org/en-US/users/signin" class="login-link launch-persona-login" data-next="/en-US/docs/Web/WebGL/Animating_objects_with_WebGL" data-service="Persona"><i class="icon-user" aria-hidden="true"></i>Persona</a></li>
+                                  <li><a href="https://developer.mozilla.org/users/github/login/?next=%2Fen-US%2Fdocs%2FWeb%2FWebGL%2FAnimating_objects_with_WebGL" class="login-link" data-service="GitHub"><i class="icon-github" aria-hidden="true"></i>GitHub</a></li>
+                              </ul>
+          </div>
+      </div>
+    </form>
+            </div>
+
+    <nav id="main-nav" role="navigation"><ul><li><a href="https://developer.mozilla.org/en-US/docs/Zones">Zones<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu submenu-single" id="nav-zones-submenu">
+          <div class="submenu-column">
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/Add-ons">Add-ons</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Apps">App Center</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Firefox">Firefox</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/Marketplace">Firefox Marketplace</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Firefox_OS">Firefox OS</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Persona">Persona</a></li>
+            </ul>
+          </div>
+        </div>
+      </li><li><a href="https://developer.mozilla.org/en-US/docs/Web">Web Platform<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu" id="nav-platform-submenu">
+          <div class="submenu-column">
+            <div class="title">Technologies</div>
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Graphics">Graphics</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/API">APIs / DOM</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/Apps">Apps</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/MathML">MathML</a></li>
+            </ul>
+          </div><div class="submenu-column last">
+            <div class="title">References &amp; Guides</div>
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/Learn">Learn the Web</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/Tutorials">Tutorials</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/Reference">References</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide">Developer Guides</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility">Accessibility</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/demos/">Demos</a></li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web">...more docs</a></li>
+            </ul>
+          </div>
+        </div>
+      </li><li><a href="https://developer.mozilla.org/en-US/docs/Tools">Tools</a></li><li><a href="https://developer.mozilla.org/en-US/demos/">Demos</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Connect">Connect</a></li><li class="nav-search-link"><a href="https://developer.mozilla.org/en-US/search" title="Search"><i aria-hidden="true" class="icon-search"></i></a></li><li class="main-nav-search"><form action="https://developer.mozilla.org/en-US/search" method="get" role="search">
+        <div class="search-wrap">
+          <label for="main-q" class="offscreen">Search</label>
+          <input type="search" id="main-q" name="q" placeholder="Search" data-value="" value="">
+          <span class="search-trigger"><i aria-hidden="true" class="icon-search"></i></span>&nbsp;
+          <button type="submit" class="offscreen">Search</button>
+        </div>
+      </form></li></ul></nav>
+  </div></header>
+
+  <!-- Content will go here -->
+  <main id="content"><div class="center clear">
+  
+   <!-- end is_zone -->
+
+
+    <div class="wiki-main-content" id="document-main" role="main"><div class="center">
+            <div class="article-meta">
+        <!-- action buttons -->
+        
+        
+        
+
+  <ul class="page-buttons" data-sticky="false"><li><button id="languages-menu" class="transparent" aria-haspopup="true" aria-owns="languages-menu-submenu" aria-expanded="false"><span>Languages</span><i aria-hidden="true" class="icon-globe"></i></button>
+
+        <div class="submenu" id="languages-menu-submenu">
+          <div class="submenu-column">
+            <ul id="translations">
+                                                <li><bdi><a rel="internal" href="https://developer.mozilla.org/de/docs/Web/WebGL/Objekte_mit_WebGL_animieren" title="Objekte mit WebGL animieren">Deutsch</a></bdi></li>
+                                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/es/docs/Web/WebGL/Animating_objects_with_WebGL" title="Animación de Objetos con  WebGL">Español</a></bdi></li>
+                                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/ja/docs/Web/WebGL/Animating_objects_with_WebGL" title="Animating objects with WebGL">日本語</a></bdi></li>
+                                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/ko/docs/Web/WebGL/Animating_objects_with_WebGL" title="WebGL을 사용한 애니메이션 객체">한국어</a></bdi></li>
+                              
+                              <li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL$locales" rel="nofollow, noindex">Add a translation</a></li>
+                          </ul>
+          </div>
+        </div></li><li class="page-buttons-edit"><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL$edit" class="button" data-optimizely-hook="button-edit-doc" id="edit-button">Edit<i aria-hidden="true" class="icon-pencil"></i></a></li><li><button id="advanced-menu" class="only-icon" aria-haspopup="true" aria-owns="advanced-menu-submenu" aria-expanded="false"><span>Advanced</span><i aria-hidden="true" class="icon-cog"></i></button>
+
+        <div class="submenu" id="advanced-menu-submenu">
+          <!-- this page -->
+          <div class="submenu-column">
+            <div class="title">Advanced</div>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL$history" rel="nofollow, noindex">History</a></li>
+                                                                
+                
+                                
+                                                                <li class="page-print"><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#" onclick="return window.print();">Print this page</a></li>
+            </ul>
+          </div>
+        </div>
+  </li></ul>
+
+        <!-- crumbs -->
+          <nav class="crumbs" role="navigation"><ol xmlns:v="http://rdf.data-vocabulary.org/#" aria-label="breadcrumbs">
+    <li typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/en-US" rel="v:url" property="v:title">MDN</a></li>
+          <li class="crumb" typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/en-US/docs/Web" rel="v:url" property="v:title">Web technology for developers</a></li>
+          <li class="crumb" typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL" rel="v:url" property="v:title">WebGL</a></li>
+        <li class="crumb" typeof="v:Breadcrumb" property="v:title">Animating objects with WebGL</li>
+  </ol></nav>
+      </div>
+
+      <!-- heading -->
+      <div id="wiki-document-head" class="document-head">
+          <span class="from-search-previous-box">
+            <a class="button from-search-previous only-icon disabled" title="Previous Search Result" data-empty-title="No Previous Search Result"><i aria-hidden="true" class="icon-chevron-left"></i></a>
+          </span>
+          <span class="from-search-navigate-wrap">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#" class="from-search-navigate"><span class="from-search-navigate-up"><i aria-hidden="true" class="icon-double-angle-up"></i></span><span class="from-search-navigate-down"><i aria-hidden="true" class="icon-double-angle-down"></i></span></a>
+          </span>
+          <div class="from-search-toc">
+            <span class="title">Your Search Results</span>
+            <ol></ol>
+          </div>
+          <span class="from-search-next-box">
+            <a class="button from-search-next only-icon disabled" title="Next Search Result" data-empty-title="No Previous Search Result"><i aria-hidden="true" class="icon-chevron-right"></i></a>
+          </span>
+        <h1>Animating objects with WebGL</h1>
+        
+      </div>
+      
+      <!-- start the main content container -->
+        <div id="wiki-column-container" class="wiki-right-present wiki-left-closed wiki-left-none">
+
+          
+          <!-- content row with three strips -->
+          <div class="column-container column-container-reverse">
+
+                          <!-- TOC, approvals, etc -->
+              <div class="column-strip wiki-column" id="wiki-right">
+                            <!-- table of contents -->
+              <div id="toc" class="toc toggleable fixed" style="width: 287px; top: 0px; max-height: 643px;">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#toc" class="title toggler" data-open-icon="icon-plus" data-closed-icon="icon-minus" aria-haspopup="true">In This Article<i class="icon-minus"></i></a>
+                <ol class="toggle-container">
+                  <li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#Making_the_square_rotate" rel="internal">Making the square rotate</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#Making_the_square_move" rel="internal">Making the square move</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/WebGL/Animating_objects_with_WebGL#More_matrix_operations" rel="internal">More matrix operations</a>
+                </li></ol>
+              </div>
+                            </div>
+            
+                                                  
+            <!-- center: main article content -->
+            <div id="wiki-content" class="column-main wiki-column text-content">
+
+              
+              
+                                                                                          
+              <!-- just the article content -->
+              <article id="wikiArticle">
+                                                      <p></p>
+<p></p><div class="prevnext" style="text-align: right;"> 
+    <p><a href="https://developer.mozilla.org/en-US/docs/WebGL/Using_shaders_to_apply_color_in_WebGL" style="float: left;">« Previous</a><a href="https://developer.mozilla.org/en-US/docs/WebGL/Creating_3D_objects_using_WebGL">Next  »</a></p> 
+</div><p></p>
+<p>&nbsp;</p>
+<p>Our existing code from the previous examples is already configured to redraw our WebGL&nbsp;scene every 15 milliseconds. Until now, it's simply redrawing everything exactly the same way every time. It's time to change that, so that our square actually moves.</p>
+<p>In this example, we'll actually rotate and move our 2D square in all three dimensions; this will prove that even though we're only creating a 2D object, it still exists in 3D space.</p>
+<h2 id="Making_the_square_rotate">Making the square rotate</h2>
+<p>Let's start by making the square rotate. The first thing we'll need is a variable in which to track the current rotation of the square:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> squareRotation <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
+<p>Now we need to update the <code>drawScene()</code> function to apply the current rotation to the square when drawing it. After translating to the initial drawing position for the square, we apply the rotation like this:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token function">mvPushMatrix<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">mvRotate<span class="token punctuation">(</span></span>squareRotation<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div></code></pre>
+<p>This saves the current model-view matrix, then rotates the matrix by the current value of <code>squareRotation</code>, around the X and Z axes.</p>
+<p>After drawing, we need to restore the original matrix:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token function">mvPopMatrix<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
+<p>We save and restore the original matrix to avoid having this rotation applied to other objects we might draw.</p>
+<p>To actually animate, we need to add code that changes the value of <code>squareRotation</code> over time. We can do that by creating a new variable to track the time at which we last animated (let's call it <code>lastSquareUpdateTime</code>), then adding the following code to the end of the <code>drawScene()</code>&nbsp;function:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> currentTime <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>lastSquareUpdateTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  	<span class="token keyword">var</span> delta <span class="token operator">=</span> currentTime <span class="token operator">-</span> lastSquareUpdateTime<span class="token punctuation">;</span>
+  	
+  	squareRotation <span class="token operator">+</span><span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">30</span> <span class="token operator">*</span> delta<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000.0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  lastSquareUpdateTime <span class="token operator">=</span> currentTime<span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div></code></pre>
+<p>This code uses the amount of time that's passed since the last time we updated the value of <code>squareRotation</code> to determine how far to rotate the square.</p>
+<h2 id="Making_the_square_move">Making the square move</h2>
+<p>We can also move the square around by translating to a different position before drawing it. This example is going to do some very basic animation; obviously in the real world you'd want to do something less insane.</p>
+<p>Let's track offsets to each axis for our translation in new variables:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> squareXOffset <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> squareYOffset <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> squareZOffset <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div></code></pre>
+<p>And the amount by which to change our position on each axis in these variables:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> xIncValue <span class="token operator">=</span> <span class="token number">0.2</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> yIncValue <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">0.4</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> zIncValue <span class="token operator">=</span> <span class="token number">0.3</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div></code></pre>
+<p>Now we can simply add this code to the previous code that updates the rotation:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js">squareXOffset <span class="token operator">+</span><span class="token operator">=</span> xIncValue <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">30</span> <span class="token operator">*</span> delta<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    squareYOffset <span class="token operator">+</span><span class="token operator">=</span> yIncValue <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">30</span> <span class="token operator">*</span> delta<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    squareZOffset <span class="token operator">+</span><span class="token operator">=</span> zIncValue <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">30</span> <span class="token operator">*</span> delta<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">abs<span class="token punctuation">(</span></span>squareYOffset<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">2.5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      xIncValue <span class="token operator">=</span> <span class="token operator">-</span>xIncValue<span class="token punctuation">;</span>
+      yIncValue <span class="token operator">=</span> <span class="token operator">-</span>yIncValue<span class="token punctuation">;</span>
+      zIncValue <span class="token operator">=</span> <span class="token operator">-</span>zIncValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div></code></pre>
+<p>Finally, add the following to the&nbsp;<code>drawScene()</code>&nbsp;function:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token function">mvTranslate<span class="token punctuation">(</span></span><span class="token punctuation">[</span>squareXOffset<span class="token punctuation">,</span> squareYOffset<span class="token punctuation">,</span> squareZOffset<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
+<p>This causes our square to zoom around, moving haphazardly around the context as well as toward and away from the viewer, all while rotating. It looks rather like a screen saver.</p>
+<p>If your browser supports WebGL, <a href="https://developer.mozilla.org/samples/webgl/sample4/index.html" title="https://developer.mozilla.org/samples/webgl/sample4/index.html">click here to take a look at this example</a> in action.</p>
+<h2 id="More_matrix_operations">More matrix operations</h2>
+<p>This example uses a few additional matrix operations, including two routines to push and pop matrices from a stack to preserve them, and one that rotates a matrix a given number of degrees. These follow, for your reference:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> mvMatrixStack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">mvPushMatrix<span class="token punctuation">(</span></span>m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    mvMatrixStack<span class="token punctuation">.</span><span class="token function">push<span class="token punctuation">(</span></span>m<span class="token punctuation">.</span><span class="token function">dup<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    mvMatrix <span class="token operator">=</span> m<span class="token punctuation">.</span><span class="token function">dup<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    mvMatrixStack<span class="token punctuation">.</span><span class="token function">push<span class="token punctuation">(</span></span>mvMatrix<span class="token punctuation">.</span><span class="token function">dup<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">mvPopMatrix<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>mvMatrixStack<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">throw</span><span class="token punctuation">(</span><span class="token string">"Can't pop from an empty matrix stack."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  mvMatrix <span class="token operator">=</span> mvMatrixStack<span class="token punctuation">.</span><span class="token function">pop<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> mvMatrix<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">mvRotate<span class="token punctuation">(</span></span>angle<span class="token punctuation">,</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> inRadians <span class="token operator">=</span> angle <span class="token operator">*</span> Math<span class="token punctuation">.</span>PI <span class="token operator">/</span> <span class="token number">180.0</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">var</span> m <span class="token operator">=</span> Matrix<span class="token punctuation">.</span><span class="token function">Rotation<span class="token punctuation">(</span></span>inRadians<span class="token punctuation">,</span> $<span class="token function">V<span class="token punctuation">(</span></span><span class="token punctuation">[</span>v<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> v<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> v<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ensure4x4<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">multMatrix<span class="token punctuation">(</span></span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div></code></pre>
+<p>These routines were borrowed from a sample previously written by Vlad Vukićević.</p>
+<p></p><div class="prevnext" style="text-align: right;"> 
+    <p><a href="https://developer.mozilla.org/en-US/docs/WebGL/Using_shaders_to_apply_color_in_WebGL" style="float: left;">« Previous</a><a href="https://developer.mozilla.org/en-US/docs/WebGL/Creating_3D_objects_using_WebGL">Next  »</a></p> 
+</div><p></p>
+<p></p>
+                                                </article>
+
+              
+                <!-- contributors -->
+                <div class="wiki-block contributors">
+                  <h2 class="offscreen">Document Tags and Contributors</h2>
+                                                      <!-- tags if present -->
+                  <div class="tag-attach-list contributors-sub">
+                    <i aria-hidden="true" class="icon-tags"></i><strong>Tags:</strong>&nbsp;
+                    <ul class="tags tags-small"><li><a href="https://developer.mozilla.org/en-US/docs/tag/Canvas">Canvas</a></li><li><a href="https://developer.mozilla.org/en-US/docs/tag/NeedsUpdate">NeedsUpdate</a></li><li><a href="https://developer.mozilla.org/en-US/docs/tag/Guide">Guide</a></li><li><a href="https://developer.mozilla.org/en-US/docs/tag/WebGL">WebGL</a></li><li><a href="https://developer.mozilla.org/en-US/docs/tag/Advanced">Advanced</a></li><li><a href="https://developer.mozilla.org/en-US/docs/tag/NeedsLiveSample">NeedsLiveSample</a></li></ul>
+                  </div>
+                                    <div class="contributors-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="https://developer.mozilla.org/en-US/profiles/Sheppy">Sheppy</a>, <a href="https://developer.mozilla.org/en-US/profiles/groovecoder">groovecoder</a>, <a href="https://developer.mozilla.org/en-US/profiles/AllenZ">AllenZ</a>, <a href="https://developer.mozilla.org/en-US/profiles/fscholz">fscholz</a>, <a href="https://developer.mozilla.org/en-US/profiles/sangwoo">sangwoo</a>, <a href="https://developer.mozilla.org/en-US/profiles/Masked_Coder">Masked_Coder</a>, <a href="https://developer.mozilla.org/en-US/profiles/yyss">yyss</a>, <a href="https://developer.mozilla.org/en-US/profiles/kscarfone">kscarfone</a>, <a href="https://developer.mozilla.org/en-US/profiles/Jeremie">Jeremie</a> </div>                                      <div class="contributors-sub">
+                      <i aria-hidden="true" class="icon-clock-o"></i><strong>Last updated by:</strong>
+                      <a href="https://developer.mozilla.org/en-US/profiles/groovecoder">groovecoder</a>,
+                      <time datetime="2014-11-20T07:02:08-08:00">Nov 20, 2014 7:02:08 AM</time>
+                    </div>
+                                  </div>
+                          </div>
+
+                      </div>
+        </div>
+      </div>
+    </div> <!-- ends "main-content" -->
+
+  <menu type="context" id="edit-history-menu">
+    <menuitem data-action="$edit" label="Edit page"></menuitem>
+    <menuitem data-action="$history" label="View page history"></menuitem>
+  </menu>
+  </div></main>
+
+  <!-- Footer -->
+  <footer><div class="center">
+    <div class="column-container">
+      <div class="column-main">
+                <p>
+          <bdi>© 2005-2015 Mozilla Developer Network and individual contributors<br> Content is available under <a href="https://developer.mozilla.org/en-US/docs/Project:MDN/About#Copyrights_and_licenses">these licenses</a> · <a href="https://developer.mozilla.org/en-US/docs/Project:MDN/About">About MDN</a> · <a href="https://www.mozilla.org/about/legal/terms/mozilla">Terms</a> · <a href="https://www.mozilla.org/privacy/websites/">Privacy</a> · <a href="https://www.mozilla.org/privacy/websites/#cookies">Cookies</a> · <a href="https://github.com/mozilla/kuma">Contribute to the code</a></bdi>        </p>
+              </div>
+      <div class="column-strip">
+                        <form class="languages go" method="get" action="https://developer.mozilla.org/en-US/docs/Web">
+      <label for="language">Other languages:</label>
+      <select id="language" class="wiki-l10n" name="next" dir="ltr">
+        <option value="/en-US/docs/Web/WebGL/Animating_objects_with_WebGL" selected="">
+          English (US)
+        </option>
+                  <option value="/de/docs/Web/WebGL/Objekte_mit_WebGL_animieren">
+            Deutsch
+          </option>          <option value="/es/docs/Web/WebGL/Animating_objects_with_WebGL">
+            Español
+          </option>          <option value="/ja/docs/Web/WebGL/Animating_objects_with_WebGL">
+            日本語
+          </option>          <option value="/ko/docs/Web/WebGL/Animating_objects_with_WebGL">
+            한국어
+          </option>      </select>
+      <noscript>&lt;button type="submit"&gt;Go&lt;/button&gt;</noscript>
+    </form>
+                </div>
+    </div>
+  </div></footer>
+
+  <!-- site js -->
+    <script src="./Animating objects with WebGL - WebGL   MDN_files/build-7858705"></script>
+  
+      <!--[if lte IE 8]><script src="/media/js/libs/selectivizr-1.0.2/selectivizr-build.js"></script><![endif]-->
+
+    <script src="./Animating objects with WebGL - WebGL   MDN_files/include.js"></script>
+<form id="_persona_login" method="post" action="https://developer.mozilla.org/users/persona/signin" data-csrf-token-url="/users/persona/csrf" data-request="{&quot;siteName&quot;: &quot;Mozilla Developer Network&quot;, &quot;siteLogo&quot;: &quot;/media/redesign/img/opengraph-logo.png&quot;}">
+  <input type="hidden" name="csrfmiddlewaretoken" value="" id="_persona_csrf_token">
+  <input type="hidden" name="next" value="" id="_persona_next_url">
+  <input type="hidden" name="process" value="" id="_persona_process">
+  <input type="hidden" name="assertion" id="_persona_assertion">
+</form>
+
+    <script src="./Animating objects with WebGL - WebGL   MDN_files/main-min.js"></script>
+
+          <script>
+        if(window.mdn && mdn.analytics) mdn.analytics.trackOutboundLinks();
+      </script>
+    
+          <script src="./Animating objects with WebGL - WebGL   MDN_files/wiki-min.js"></script><script data-manual="" async="" src="./Animating objects with WebGL - WebGL   MDN_files/syntax-prism-min.js"></script>
+      
+    <script type="text/javascript">
+      if(window.jQuery) jQuery('.from-search-toc').mozSearchResults('');
+  </script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-3.newrelic.com","queueTime":1,"licenseKey":"42869b6ed3","agent":"js-agent.newrelic.com/nr-515.min.js","transactionName":"b1QHMUtVDRdSW0YKXVYeIxBXVxcNXFYdCEdVUEsSUF8KSkVRVxRBAlUKBkxZBgpH","applicationID":"3172075","errorBeacon":"bam.nr-data.net","applicationTime":299}</script>
+<script src="./Animating objects with WebGL - WebGL   MDN_files/nr-515.min.js"></script><script type="text/javascript" src="./Animating objects with WebGL - WebGL   MDN_files/42869b6ed3"></script></body></html>
