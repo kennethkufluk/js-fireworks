@@ -1,0 +1,54 @@
+TODO
+
+
+
+start from basics
+- glyph object
+  - single representation of vertices and drawing instructions
+- draw outline of glyph
+- firework object
+- (spark object? extends firework)
+- text object
+  - made of glyphs, multiline
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+- we need all of cufon (to read the font, generate the vml) - but a fork
+- getcoords: new method that gets the vertices of the glyphs
+- drawglyph: show the glyph on the screen afterwards
+- I wonder if we should break the glyph by closed path
+
+1) x draw a glyph on the canvas
+
+- most of cufon is about working out font/style options from the page
+- generateFromVML will generate canvas commands from the glyph vml
+- renderText is the loop that shows it
+- we don't need cufon, just those functions
+
+
+2) x draw the vertices on the canvas
+3) rewrite the launcher to use 3d destinations
+  ( this is just a bit of trig, not too hard )
+4) switch to webgl
+5) 3d explosions
+6) sparkly afterglow
+7) update the dialog, restore the sliders, etc.
+8) add japanese, chinese, emoticons
+
+
+bugs:
+- resizer
+- animationframe
+- short url stuff
+- kerning

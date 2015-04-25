@@ -14,12 +14,15 @@
     <script src="ui/ui.slider.js"></script>
 
     <!-- Load the fireworks script and stylesheet -->
+    <script src="cufon.js"></script>
+    <script src="notosans-400.js"></script>
     <script src="fireworks.js"></script>
     <link type="text/css" href="fireworks.css" rel="stylesheet">
   </head>
   <body>
 
     <h1>JavaScript Fireworks</h1>
+    <h2 style="font-family:notosans;color:white;">JavaScript</h2>
 
     <script type="text/javascript">
       // we need a full screen canvas, but the canvas tag doesn't support percentage widths
@@ -39,7 +42,7 @@
     <div id="attributions">
       Panorama:<a href="http://www.flickr.com/photos/chrishudson/" target="_blank">flickr/ChrisH2006</a><br/>
       Eye:<a href="http://www.flickr.com/photos/mcdemoura/" target="_blank">flickr/Márcio Cabral de Moura</a><br/>
-      Font: <a href="http://bitmapmania.m78.com/" target="_blank">BM Receipt</a>  via <a href="http://cufon.shoqolate.com/generate/" target="_blank">Cufón Generator</a>
+      Font: ... <a href="http://cufon.shoqolate.com/generate/" target="_blank">Cufón Generator</a>
     </div>
 
     <div id="slider_firework_speed"><span class="label" style="display:block;margin:10px 20px 10px -50px;">Speed</div>
@@ -51,7 +54,7 @@
       <form onsubmit="FireworkDisplay.launchText();return false;">
         <div>
           <span class="boxtext">Enter your own message and click Launch to see it written in Fireworks</span><br/>
-          <input id="firetext" type="text" value="your message here"/>
+          <input id="firetext" type="text" value="hello world"/>
           <input id="launch" type="submit" value="Launch!"/>
         </div>
         <div>

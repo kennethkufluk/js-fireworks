@@ -44,20 +44,20 @@
             "w": 93
         },
 
-        case 'v':
-          code[i] = { m: 'bezierCurveTo', a: [ atX + ~~c[0], atY + ~~c[1], atX + ~~c[2], atY + ~~c[3], atX += ~~c[4], atY += ~~c[5] ] };
-          break;
-        case 'r':
-          code[i] = { m: 'lineTo', a: [ atX += ~~c[0], atY += ~~c[1] ] };
-          break;
-        case 'm':
-          code[i] = { m: 'moveTo', a: [ atX = ~~c[0], atY = ~~c[1] ] };
-          break;
-        case 'x':
-          code[i] = { m: 'closePath' };
-          break;
-        case 'e':
-          break generate;
+        // case 'v':
+        //   code[i] = { m: 'bezierCurveTo', a: [ atX + ~~c[0], atY + ~~c[1], atX + ~~c[2], atY + ~~c[3], atX += ~~c[4], atY += ~~c[5] ] };
+        //   break;
+        // case 'r':
+        //   code[i] = { m: 'lineTo', a: [ atX += ~~c[0], atY += ~~c[1] ] };
+        //   break;
+        // case 'm':
+        //   code[i] = { m: 'moveTo', a: [ atX = ~~c[0], atY = ~~c[1] ] };
+        //   break;
+        // case 'x':
+        //   code[i] = { m: 'closePath' };
+        //   break;
+        // case 'e':
+        //   break generate;
 
 
         "!": {
