@@ -1,13 +1,11 @@
 
 js-fireworks
-http://js-fireworks.appspot.com
+http://kennethkufluk.github.io/js-fireworks
 
 Kenneth Kufluk 2009/10
 http://kenneth.kufluk.com
 
 This is a Chrome Experiment, amongst other things.
-
-It's published out to Google AppEngine (free!), which is what the app.yaml and index.yaml files are.
 
 The default version presented is the HTML5 Canvas experiment.
 
@@ -15,7 +13,7 @@ I've also written versions for Flash, Flex and SVG.  Some of them are more compl
 
 The code is meant to be readable, as an example to learn from and play with.  Please fork this project, mess with the code, add it to your website, stick it in your product, give it to your girlfriend, sleep with it at night.
 
-This code is released under the MIT (X11) license.  Details below: 
+This code is released under the MIT (X11) license.  Details below:
 
 Copyright (c) 2010 Kenneth Kufluk
 

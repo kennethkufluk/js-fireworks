@@ -146,7 +146,7 @@ FireworkDisplay = {
         FireworkDisplay.updateTinyUrl(tinypath);
     },
     updateTinyUrl : function (o) {
-        $('#url').val(o.tinyurl);
+        $('#url').val(o);
     },
     launchText :  function() {
         this.getTinyUrl();
