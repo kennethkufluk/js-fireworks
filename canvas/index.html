@@ -30,7 +30,7 @@
     <script type="text/javascript">
         // we need a full screen canvas, but the canvas tag doesn't support percentage widths
         // so we simply write out the canvas tag using javascript
-        document.write('<div style="background:url(images/background.jpg) repeat-x;position:absolute;left:0;top:'+($(window).height()-193)+'px;width:100%;height:200px;"></div>');
+        document.write('<div style="background:url(../images/background.jpg) repeat-x;position:absolute;left:0;top:'+($(window).height()-193)+'px;width:100%;height:200px;"></div>');
         document.write('<canvas id="cv" width="'+$(window).width()+'" height="'+($(window).height()-100)+'" style="position:absolute;left:0;top:0;"></canvas>');
         // obviously, this become wrong if the browser window changes size
         // so we simply reload the page on resize
