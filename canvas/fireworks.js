@@ -1,6 +1,6 @@
 /*
  * fireworks.js - Kenneth Kufluk (http://kenneth.kufluk.com/)
- * http://js-fireworks.appspot.com/
+ * https://kennethkufluk.github.io/js-fireworks
  * MIT (X11) Licensed
 
  Copyright (c) 2010 Kenneth Kufluk
@@ -142,7 +142,7 @@ FireworkDisplay = {
         setTimeout("FireworkDisplay.addFireworks()", 1000/this.DEPLOYMENT_RATE);
     },
     getTinyUrl : function () {
-        var tinypath = "http://js-fireworks.appspot.com?msg="+escape($('#firetext').val());
+        var tinypath = "https://kennethkufluk.github.io/js-fireworks/canvas?msg="+escape($('#firetext').val());
         FireworkDisplay.updateTinyUrl(tinypath);
     },
     updateTinyUrl : function (o) {
