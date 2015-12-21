@@ -2,7 +2,7 @@
  * fireworks.js - Kenneth Kufluk (http://kenneth.kufluk.com/)
  * http://js-fireworks.appspot.com/
  * MIT (X11) Licensed
- 
+
  Copyright (c) 2010 Kenneth Kufluk
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,7 +22,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
- 
+
  *
  */
 $(document).ready(function(){
@@ -39,12 +39,12 @@ $(document).ready(function(){
     }
 
     // reload the page when it's resized
-    var resizeTimer = null; 
-    $(window).bind('resize', function() { 
+    var resizeTimer = null;
+    $(window).bind('resize', function() {
         if (document.all) return;
-        if (resizeTimer) clearTimeout(resizeTimer); 
-        resizeTimer = setTimeout("location.reload()", 100); 
-    }); 
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout("location.reload()", 100);
+    });
 
     // finally, all is ready, so kick off the firework display
     var params = location.search;
@@ -117,7 +117,7 @@ FireworkDisplay = {
         this.ctx.clearRect(0, 0, this.canvaswidth, this.canvasheight);
         var firecount = 0;
         for (var i=0;i<this.fireworks.length;i++) {
-            if (this.fireworks[i]==null) continue; 
+            if (this.fireworks[i]==null) continue;
             if (this.fireworks[i].status!=this.FIREWORK_EXPLODED) {
                 firecount++;
             }
@@ -143,15 +143,7 @@ FireworkDisplay = {
     },
     getTinyUrl : function () {
         var tinypath = "http://js-fireworks.appspot.com?msg="+escape($('#firetext').val());
-        // Define API URL:
-        API = 'http://json-tinyurl.appspot.com/?url=';
-        // Append new SCRIPT element to BODY with SRC of API:
-        document.getElementsByTagName('body')[0].appendChild((function(){
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src = API + encodeURIComponent(tinypath) + '&callback=FireworkDisplay.updateTinyUrl';
-            return s;
-        })());
+        FireworkDisplay.updateTinyUrl(tinypath);
     },
     updateTinyUrl : function (o) {
         $('#url').val(o.tinyurl);
@@ -174,10 +166,10 @@ FireworkDisplay = {
         this.canvaswidth = $(window).width();
         this.canvasheight = $(window).height();
 
-        $(this.canvas).bind('click', function() { 
+        $(this.canvas).bind('click', function() {
             $('#form').fadeIn('slow');
         });
-        
+
         var text = $('#firetext').val();
         if (pageTracker) pageTracker._trackPageview("/launched/"+escape(text));
 
@@ -224,9 +216,9 @@ FireworkDisplay = {
         }
 
         this.gameloop = setInterval("FireworkDisplay.updateDisplay()", 1000/this.FRAME_RATE);
-        
+
         this.addFireworks();
-        
+
         $('#form').fadeOut('slow');
     },
     launchFirework : function(fw, dispersion, speed) {
@@ -247,7 +239,7 @@ FireworkDisplay = {
         this.ctx.strokeStyle = "rgb(200, 200, 200)";
         // add the fragments
         var frags = Math.random() * this.FIREWORK_PAYLOAD;
-        for (var i=0;i<frags;i++) { 
+        for (var i=0;i<frags;i++) {
             var spark = this.fireworks[this.fireworks.length] = new Firework(this.fireworks.length);
             spark.x = fw.x;
             spark.y = fw.y;
