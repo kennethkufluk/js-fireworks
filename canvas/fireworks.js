@@ -257,7 +257,7 @@ FireworkDisplay = {
         if (fw.y<0) this.destroyFirework(fw);
         if (fw.status==this.FIREWORK_EXPLODED) {
             this.ctx.beginPath();
-            this.ctx.fillStyle = "rgb(200, 200, 200)";
+            this.ctx.fillStyle = "#fff";
             var radius         = 3;                    // Arc radius
             var startAngle     = 0;                     // Starting point on circle
             var endAngle       = Math.PI*2; // End point on circle
